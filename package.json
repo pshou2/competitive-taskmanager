@@ -4,7 +4,7 @@
   "description": "An app where roommates can track chores together. Like a competitive game, you compete to complete tasks as quick as possible to win bragging rights through metrics.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.ts",
+    "dev": "nodemon src/index.ts",
     "build": "tsc",
     "start": "tsc & node dist/index.js",
     "lint": "eslint . --ext .ts",
