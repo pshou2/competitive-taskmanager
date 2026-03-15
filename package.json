@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.ts",
     "build": "tsc",
-    "start": "tsc & dist/index.js",
+    "start": "tsc & node dist/index.js",
     "lint": "eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
