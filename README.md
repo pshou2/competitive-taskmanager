@@ -1,4 +1,3 @@
 # Competitive Taskmanager
 
-## Purpose
-Create an app where roommates can track chores together. I want it to be like a competitive game, where you compete to complete tasks as quick as possible. 
+An app where roommates can track chores together. Like a competitive game, you compete to complete tasks as quick as possible to win bragging rights through metrics. 
