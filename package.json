@@ -1,0 +1,29 @@
+{
+  "name": "competitive-taskmanager",
+  "version": "1.0.0",
+  "description": "An app where roommates can track chores together. Like a competitive game, you compete to complete tasks as quick as possible to win bragging rights through metrics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pshou2/competitive-taskmanager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pshou2/competitive-taskmanager/issues"
+  },
+  "homepage": "https://github.com/pshou2/competitive-taskmanager#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
