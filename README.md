@@ -11,6 +11,7 @@ Data models
 * Group roles
 
 Functionality
+* Users should be able to authenticate
 * Users should be able to create and invite other members to their group
 * When a user is invited, a notification should be sent to their email and they can accept the invite in the app. 
 * User is either the group creator, or a regular group member
