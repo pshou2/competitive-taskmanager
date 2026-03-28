@@ -1,7 +1,7 @@
 import { Schema, model} from 'mongoose';
 
 ///create interface
-interface IUser {
+export interface IUser {
     name: string;
     email: string;
     createdAt: Date;
