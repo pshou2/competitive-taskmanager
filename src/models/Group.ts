@@ -22,10 +22,12 @@ export interface IGroup {
 const memberSchema = new Schema<IMember>({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     role: {
         type: String,
+        required: true,
         enum: ['leader', 'member']
     },
     points: {
@@ -37,7 +39,8 @@ const memberSchema = new Schema<IMember>({
 const invitationSchema = new Schema<IInvitation>({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     invitedAt: {
         type: Date,
@@ -57,6 +60,8 @@ const groupSchema = new Schema<IGroup> ({
     },
     members: [memberSchema],
     invitations: [invitationSchema]
+}, {
+    timestamps: true
 });
 
 //define schema type for members field - list of Members
