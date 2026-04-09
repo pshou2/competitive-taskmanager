@@ -37,7 +37,7 @@ export async function updateUserById(id: string, data: Partial<IUser>): Promise<
 
         return await User.findByIdAndUpdate(id, data, options);
     } catch (error) {
-        throw new Error ('Failed to update user in the database', { cause: error });
+        throw new Error ("Failed to update user in the database", { cause: error });
     }
 }
 
