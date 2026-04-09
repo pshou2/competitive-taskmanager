@@ -1,13 +1,11 @@
 import { User, IUser } from '../models/User';
-
-//how do i test out just this file? What should I return? I want to return a list of users, of that interface type probably
+import { QueryOptions } from 'mongoose';
 
 export async function getAllUsers(): Promise<IUser[]> {
     try {
         const users = await User.find({});
         return users;
     } catch (error) {
-        //what is error when we catch error?
         throw new Error("Failed to query database for getAllUsers()", { cause: error });
     }
 
@@ -22,9 +20,7 @@ export async function getUserById(id: string): Promise<IUser | null> {
     }
 }
 
-//input? req.body
-//return? return success?
-export async function createUser(data: Partial<IUser>) {
+export async function createUser(data: Partial<IUser>): Promise<IUser> {
     try {
         return await User.create(data);
     } catch (error) {
@@ -32,15 +28,20 @@ export async function createUser(data: Partial<IUser>) {
     }
 }
 
-export async function updateUserById(data: Partial<IUser>) {
+export async function updateUserById(id: string, data: Partial<IUser>): Promise<IUser | null> {
     try {
-        return await User.findByIdAndUpdate(data);
+        const options: QueryOptions = {
+            returnDocument: 'after',
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, data, options);
     } catch (error) {
         throw new Error ('Failed to update user in the database', { cause: error });
     }
 }
 
-export async function deleteUserById(id: string) {
+export async function deleteUserById(id: string): Promise<IUser | null> {
     try {
         return await User.findByIdAndDelete(id);
     } catch (error) {
