@@ -33,7 +33,7 @@ export const createTask = async (data: Partial<ITask>): Promise<ITask> => {
 }
 
 //update
-export const updateTaskById = async (id: string, data: Partial<ITask>): Promise<ITask | null> {
+export const updateTaskById = async (id: string, data: Partial<ITask>): Promise<ITask | null> => {
     try {
         const options: QueryOptions = {
             returnDocument: "after",

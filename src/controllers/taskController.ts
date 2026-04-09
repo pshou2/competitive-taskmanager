@@ -1,35 +1,30 @@
 import { Request, Response, NextFunction } from "express";
 import * as taskService from "../services/taskService";
 
-export const getTasksByGrpId = async (req: Request, res: Response, next: NextFunction) => {
+export const getTasksByQuery = async (req: Request, res: Response, next: NextFunction) => {
+    let tasks;
     try {
-        const groupId = typeof req.query.groupId === "string" ? req.query.groupId : "";
-        const tasks = await taskService.getTasksByGrpId(groupId);
-        if (!tasks) {
+        const groupId = typeof req.query.groupId === "string" ? req.query.groupId : undefined; 
+        const status = typeof req.query.status === "string" ? req.query.status : undefined;
+        
+        if (groupId && status) {
+            const boolStatus = status === "true" ? true : false;
+            tasks = await taskService.getTasksByGrpIdAndStatus(groupId, boolStatus);
+        } else if (groupId) {
+            tasks = await taskService.getTasksByGrpId(groupId);
+        }
+
+        if (!tasks && status) {
+            return res.status(404).json({ message: `Couldn't find tasks where groupId=${groupId} and isCompleted=${status}` });
+        } else if (!tasks && !status) {
             return res.status(404).json({ message: `Couldn't find tasks where groupId=${groupId}` });
         }
-        res.status(200).json(tasks);
-    } catch (error) {
-        next(error);
-    }
-}
-
-export const getTasksByGrpIdAndStatus = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const groupId = typeof req.query.groupId === "string" ? req.query.groupId : "";
         
-        const status = typeof req.query.status === "string" ? req.query.status : "";
-        const boolStatus = status === "true" ? true : false;
-
-        const tasks = await taskService.getTasksByGrpIdAndStatus(groupId, boolStatus);
-        if (!tasks) {
-            return res.status(404).json({ message: `Couldn't find tasks where groupId=${groupId} and isCompleted=${status}` });
-        }
         res.status(200).json(tasks);
     } catch (error) {
         next(error);
     }
-}
+};
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
