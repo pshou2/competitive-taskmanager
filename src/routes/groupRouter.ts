@@ -1,6 +1,5 @@
 import { Router } from "express";
 import * as groupController from "../controllers/groupController";
-import { group } from "console";
 
 export const groupRouter = Router();
 
