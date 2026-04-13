@@ -49,7 +49,7 @@ export const updateTaskById = async (id: string, data: Partial<ITask>): Promise<
 }
 
 //delete
-export const deleteTaskById = async (id: string): Promise<ITask | null> {
+export const deleteTaskById = async (id: string): Promise<ITask | null> => {
     try {
         const task = await Task.findByIdAndDelete(id);
         return task;

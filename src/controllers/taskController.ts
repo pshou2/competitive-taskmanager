@@ -12,12 +12,8 @@ export const getTasksByQuery = async (req: Request, res: Response, next: NextFun
             tasks = await taskService.getTasksByGrpIdAndStatus(groupId, boolStatus);
         } else if (groupId) {
             tasks = await taskService.getTasksByGrpId(groupId);
-        }
-
-        if (!tasks && status) {
-            return res.status(404).json({ message: `Couldn't find tasks where groupId=${groupId} and isCompleted=${status}` });
-        } else if (!tasks && !status) {
-            return res.status(404).json({ message: `Couldn't find tasks where groupId=${groupId}` });
+        } else {
+            return res.status(400).json({ message: `groupId: ${groupId}` });
         }
         
         res.status(200).json(tasks);
