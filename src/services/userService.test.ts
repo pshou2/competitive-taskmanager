@@ -22,15 +22,11 @@ describe('userService tests', () => {
 
     describe('getAllUsers tests', async () => {
         it('Should return an array of users', async () => {
-            //needed to add _id
             const mockedUsers: any = [
-                { _id: 'abc', googleId: '123', username: 'phil', email: 'philtest@gmail.com', groups: [] },
-                { _id: 'def', googleId: '456', username: 'test', email: 'testtest@gmail.com', groups: [] }
+                { _id: '123', googleId: '123', username: 'phil', email: 'philtest@gmail.com', groups: [] },
+                { _id: '456', googleId: '456', username: 'test', email: 'testtest@gmail.com', groups: [] }
             ];
-            //User should be User.find, because we're mocking the user.find call
-            //mocked user had a type error with Document
-            //typeerror mockResolvedValue is not a function
-                //solution: vi.mock('../models/user') had the wrong module - vi.mock('../models/User') is correct
+            
             vi.mocked(User.find).mockResolvedValue(mockedUsers);
 
             //act
@@ -42,15 +38,8 @@ describe('userService tests', () => {
         });
 
         it('Should throw an error on failure', async () => {
-            //arange
-                //user.find needs to throw an error
-                //mock what db error mongodb throws back
             const error: any = new Error('DB connection failed');
             vi.mocked(User.find).mockRejectedValue(error);
-            
-            //act
-            //assert
-            //verify the error is thrown
             await expect(userService.getAllUsers()).rejects.toThrow("Failed to query database for getAllUsers()");
 
             //this fails for some reason?
