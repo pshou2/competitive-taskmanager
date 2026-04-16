@@ -29,7 +29,6 @@ describe('userService tests', () => {
             
             vi.mocked(User.find).mockResolvedValue(mockedUsers);
 
-            //act
             const result = await userService.getAllUsers();
             
             expect(result).toEqual(mockedUsers);
