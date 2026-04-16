@@ -2,9 +2,6 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import { User } from "../models/User";
 import * as userService from "../services/userService";
 
-//mock user?
-//do it in a function? mock methods in the object?
-
 vi.mock("../models/User", () => ({
     User: {
         find: vi.fn(),
