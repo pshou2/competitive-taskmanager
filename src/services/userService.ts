@@ -1,5 +1,5 @@
-import { User, IUser } from '../models/User';
-import { QueryOptions } from 'mongoose';
+import { User, IUser } from "../models/User";
+import { QueryOptions } from "mongoose";
 
 export async function getAllUsers(): Promise<IUser[]> {
     try {
@@ -31,7 +31,7 @@ export async function createUser(data: Partial<IUser>): Promise<IUser> {
 export async function updateUserById(id: string, data: Partial<IUser>): Promise<IUser | null> {
     try {
         const options: QueryOptions = {
-            returnDocument: 'after',
+            returnDocument: "after",
             runValidators: true
         };
 
