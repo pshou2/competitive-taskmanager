@@ -15,12 +15,12 @@ export interface ITask {
 const taskSchema = new Schema<ITask>({
     groupId: {
         type: Schema.Types.ObjectId,
-        ref: 'Group',
+        ref: "Group",
         required: true
     },
     taskName: {
         type: String,
-        required: [true, 'Must have a task name']
+        required: [true, "Must have a task name"]
     },
     isCompleted: {
         type: Boolean,
@@ -28,16 +28,16 @@ const taskSchema = new Schema<ITask>({
     },
     author: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: [true, 'Must set an author']
+        ref: "User",
+        required: [true, "Must set an author"]
     },
     assignedTo: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: "User"
     },
     completedBy: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: "User",
         default: null
     },
     startDate: {
@@ -46,7 +46,7 @@ const taskSchema = new Schema<ITask>({
     },
     dueDate: {
         type: Date,
-        required: [true, 'Must set a due date']
+        required: [true, "Must set a due date"]
     },
     completedDate: {
         type: Date,
@@ -56,4 +56,4 @@ const taskSchema = new Schema<ITask>({
     timestamps: true
 });
 
-export const Task = model<ITask>('Task', taskSchema);
+export const Task = model<ITask>("Task", taskSchema);

@@ -15,7 +15,7 @@ export const getGroupById = async (id: string): Promise<IGroup | null> => {
         const group = await Group.findById(id);
         return group;
     } catch (error) {
-        throw new Error(`Couldn't query database for group with id: ${id}`, { cause: error });
+        throw new Error(`Couldn"t query database for group with id: ${id}`, { cause: error });
     }
 }
 
