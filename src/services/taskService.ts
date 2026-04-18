@@ -3,7 +3,10 @@ import { QueryOptions } from "mongoose";
 
 export const getTasksByGrpId = async (groupId: string): Promise<ITask[] | null> => {
     try {
-        const tasks = await Task.find({ groupId: groupId });
+        const tasks = await Task.find({ groupId: groupId })
+            .populate("author", "username")
+            .populate("assignedTo", "username")
+            .populate("completedBy", "username");
         return tasks;
     } catch (error) {
         throw new Error(`Failed to query database for tasks by groupId ${groupId}`, { cause: error });
