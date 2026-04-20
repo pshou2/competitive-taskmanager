@@ -41,6 +41,39 @@ export async function updateUserById(id: string, data: Partial<IUser>): Promise<
     }
 }
 
+export async function updateUserInvitations(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        //push groupId to a user's invitations
+        return await User.findByIdAndUpdate(id, {
+            $push: { invitations: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
+
+export async function updateUserGroups(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, {
+            $push: { groups: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
+
 export async function deleteUserById(id: string): Promise<IUser | null> {
     try {
         return await User.findByIdAndDelete(id);
@@ -49,4 +82,35 @@ export async function deleteUserById(id: string): Promise<IUser | null> {
     }
 }
 
+export async function deleteUserInvitations(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, {
+            $pull: { invitations: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
+
+export async function deleteUserGroups(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, {
+            $pull: { groups: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
 

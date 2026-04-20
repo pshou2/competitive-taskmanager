@@ -6,6 +6,7 @@ export interface IUser {
     username: string;
     email: string;
     groups: Types.ObjectId[];
+    invitations: Types.ObjectId[];
 }
 
 ///create schema
@@ -27,6 +28,10 @@ const userSchema = new Schema<IUser>({
         lowercase: true 
     },
     groups: [{
+        type: Schema.Types.ObjectId,
+        ref: "Group"
+    }],
+    invitations: [{
         type: Schema.Types.ObjectId,
         ref: "Group"
     }]
