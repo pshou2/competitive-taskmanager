@@ -64,3 +64,12 @@ export const deleteGroupById = async (id: string): Promise<IGroup | null> => {
         throw new Error(`Couldn't delete group in the database with id: ${id}`, { cause: error });
     }
 }
+
+//**TODO: Refactor later */
+// export const addMember = async (id: string, userId: string): Promise<IGroup> => {
+//     try {
+
+//     } catch (error) {
+
+//     }
+// }

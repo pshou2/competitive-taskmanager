@@ -9,10 +9,10 @@ userRouter.get("/:id", userController.getUserById);
 userRouter.post("/", userController.createUser);
 
 userRouter.put("/:id", userController.updateUserById);
-userRouter.post("/:id/invitations/:groupId", userController.updateUserInvitations);
-userRouter.post("/:id/groups/:groupId", userController.updateUserGroups);
+userRouter.post("/:id/invitations/:groupId", userController.addUserInvitation);
+userRouter.post("/:id/groups/:groupId", userController.addUserGroup);
 
 userRouter.delete("/:id", userController.deleteUserById);
-userRouter.delete("/:id/invitations/:groupId", userController.deleteUserInvitations);
-userRouter.delete("/:id/groups/:groupId", userController.deleteUserGroups);
+userRouter.delete("/:id/invitations/:groupId", userController.removeUserInvitation);
+userRouter.delete("/:id/groups/:groupId", userController.removeUserGroup);
 

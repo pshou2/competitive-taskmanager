@@ -65,14 +65,14 @@ export const deleteUserById = async (req: Request, res: Response, next: NextFunc
 }
 
 /**TODO: Refactor repeat code
- * updateUserInvitations, updateUserGroups, deleteUserInvitations, and deleteUserGroups
+ * addUserInvitation, addUserGroup, removeUserInvitation, and removeUserGroup
  */
-export const updateUserInvitations = async (req: Request, res: Response, next: NextFunction) => {
+export const addUserInvitation = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
         const groupId = Array.isArray(req.params.groupId) ? req.params.groupId[0] : req.params.groupId;
 
-        const user = await userService.updateUserInvitations(id, groupId);
+        const user = await userService.addUserInvitation(id, groupId);
         if (!user) {
             return res.status(404).json({ message: `User with id ${id} not found`});
         }
@@ -82,12 +82,12 @@ export const updateUserInvitations = async (req: Request, res: Response, next: N
     }
 }
 
-export const updateUserGroups = async (req: Request, res: Response, next: NextFunction) => {
+export const addUserGroup = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
         const groupId = Array.isArray(req.params.groupId) ? req.params.groupId[0] : req.params.groupId;
 
-        const user = await userService.updateUserGroups(id, groupId);
+        const user = await userService.addUserGroup(id, groupId);
         if (!user) {
             return res.status(404).json({ message: `User with id ${id} not found`});
         }
@@ -97,12 +97,12 @@ export const updateUserGroups = async (req: Request, res: Response, next: NextFu
     }
 }
 
-export const deleteUserInvitations = async (req: Request, res: Response, next: NextFunction) => {
+export const removeUserInvitation = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
         const groupId = Array.isArray(req.params.groupId) ? req.params.groupId[0] : req.params.groupId;
 
-        const user = await userService.deleteUserInvitations(id, groupId);
+        const user = await userService.removeUserInvitation(id, groupId);
         if (!user) {
             return res.status(404).json({ message: `User with id ${id} not found`});
         }
@@ -112,12 +112,12 @@ export const deleteUserInvitations = async (req: Request, res: Response, next: N
     }
 }
 
-export const deleteUserGroups = async (req: Request, res: Response, next: NextFunction) => {
+export const removeUserGroup = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
         const groupId = Array.isArray(req.params.groupId) ? req.params.groupId[0] : req.params.groupId;
 
-        const user = await userService.deleteUserGroups(id, groupId);
+        const user = await userService.removeUserGroup(id, groupId);
         if (!user) {
             return res.status(404).json({ message: `User with id ${id} not found`});
         }

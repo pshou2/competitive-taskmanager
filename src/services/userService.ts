@@ -53,7 +53,7 @@ export async function deleteUserById(id: string): Promise<IUser | null> {
  * updateUserInvitations, updateUserGroups, deleteUserInvitations, and deleteUserGroups
  */
 
-export async function updateUserInvitations(id: string, groupId: string): Promise<IUser | null> {
+export async function addUserInvitation(id: string, groupId: string): Promise<IUser | null> {
     try {
         const options: QueryOptions = {
             returnDocument: "after",
@@ -70,7 +70,7 @@ export async function updateUserInvitations(id: string, groupId: string): Promis
     }
 }
 
-export async function updateUserGroups(id: string, groupId: string): Promise<IUser | null> {
+export async function addUserGroup(id: string, groupId: string): Promise<IUser | null> {
     try {
         const options: QueryOptions = {
             returnDocument: "after",
@@ -86,7 +86,7 @@ export async function updateUserGroups(id: string, groupId: string): Promise<IUs
     }
 }
 
-export async function deleteUserInvitations(id: string, groupId: string): Promise<IUser | null> {
+export async function removeUserInvitation(id: string, groupId: string): Promise<IUser | null> {
     try {
         const options: QueryOptions = {
             returnDocument: "after",
@@ -102,7 +102,7 @@ export async function deleteUserInvitations(id: string, groupId: string): Promis
     }
 }
 
-export async function deleteUserGroups(id: string, groupId: string): Promise<IUser | null> {
+export async function removeUserGroup(id: string, groupId: string): Promise<IUser | null> {
     try {
         const options: QueryOptions = {
             returnDocument: "after",
