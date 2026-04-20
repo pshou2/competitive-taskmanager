@@ -13,7 +13,7 @@ export const getTasksByQuery = async (req: Request, res: Response, next: NextFun
         } else if (groupId) {
             tasks = await taskService.getTasksByGrpId(groupId);
         } else {
-            return res.status(400).json({ message: `groupId: ${groupId}` });
+            return res.status(400).json({ message: `Bad request with missing groupId query - groupId: ${groupId}` });
         }
         
         res.status(200).json(tasks);

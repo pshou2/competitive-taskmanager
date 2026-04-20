@@ -1,5 +1,6 @@
 import { IGroup, Group } from "../models/Group";
-import { QueryOptions } from "mongoose";
+import { Task } from "../models/Task";
+import { QueryOptions, Types } from "mongoose";
 
 export const getAllGroups = async (): Promise<IGroup[]> => {
     try {
@@ -16,6 +17,20 @@ export const getGroupById = async (id: string): Promise<IGroup | null> => {
         return group;
     } catch (error) {
         throw new Error(`Couldn"t query database for group with id: ${id}`, { cause: error });
+    }
+}
+
+export const getGroupRankings = async (groupId: string) => {
+    try {
+        const rankings = await Task.aggregate([
+            { $match: { groupId: new Types.ObjectId(groupId), isCompleted: true } },
+            { $group: { _id: '$completedBy', tasksCompleted: { $sum: 1 } } },
+            { $sort: { tasksCompleted: -1 } },
+            { $project: { userId: '$_id', tasksCompleted: 1, _id: 0 } }
+        ]);
+        return rankings;
+    } catch (error) {
+        throw new Error(`Failed to aggregate tasks by groupId: ${groupId}`, {cause: error});
     }
 }
 

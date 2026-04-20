@@ -23,6 +23,22 @@ export const getGroupById = async (req: Request, res: Response, next: NextFuncti
     }
 }
 
+export const getGroupRankings = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        let rankings;
+        const groupId = typeof req.query.groupId === "string" ? req.query.groupId : undefined; 
+        if (groupId) {
+            rankings = await groupService.getGroupRankings(groupId);
+        } else {
+            return res.status(400).json({ message: `Bad request with missing groupId query - groupId: ${groupId}` });
+        }
+       
+        res.status(200).json(rankings);
+    } catch (error) {
+        next(error);
+    }
+}
+
 export const createGroup = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = req.body;
