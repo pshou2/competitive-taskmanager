@@ -49,6 +49,24 @@ export const updateUserById = async (req: Request, res: Response, next: NextFunc
     }
 }
 
+export const deleteUserById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+        const user = await userService.deleteUserById(id);
+
+        if (!user) {
+            return res.status(404).json({ message: `User with id ${id} not found`});
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+}
+
+/**TODO: Refactor repeat code
+ * updateUserInvitations, updateUserGroups, deleteUserInvitations, and deleteUserGroups
+ */
 export const updateUserInvitations = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
@@ -73,21 +91,6 @@ export const updateUserGroups = async (req: Request, res: Response, next: NextFu
         if (!user) {
             return res.status(404).json({ message: `User with id ${id} not found`});
         }
-        res.status(200).json(user);
-    } catch (error) {
-        next(error);
-    }
-}
-
-export const deleteUserById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-        const user = await userService.deleteUserById(id);
-
-        if (!user) {
-            return res.status(404).json({ message: `User with id ${id} not found`});
-        }
-
         res.status(200).json(user);
     } catch (error) {
         next(error);

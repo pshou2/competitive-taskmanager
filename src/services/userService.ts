@@ -41,6 +41,18 @@ export async function updateUserById(id: string, data: Partial<IUser>): Promise<
     }
 }
 
+export async function deleteUserById(id: string): Promise<IUser | null> {
+    try {
+        return await User.findByIdAndDelete(id);
+    } catch (error) {
+        throw new Error (`Failed to delete user by id ${id} in the database`, { cause: error });
+    }
+}
+
+/**TODO: Refactor repeat code
+ * updateUserInvitations, updateUserGroups, deleteUserInvitations, and deleteUserGroups
+ */
+
 export async function updateUserInvitations(id: string, groupId: string): Promise<IUser | null> {
     try {
         const options: QueryOptions = {
@@ -71,14 +83,6 @@ export async function updateUserGroups(id: string, groupId: string): Promise<IUs
 
     } catch (error) {
         throw new Error ("Failed to update user in the database", { cause: error });
-    }
-}
-
-export async function deleteUserById(id: string): Promise<IUser | null> {
-    try {
-        return await User.findByIdAndDelete(id);
-    } catch (error) {
-        throw new Error (`Failed to delete user by id ${id} in the database`, { cause: error });
     }
 }
 
