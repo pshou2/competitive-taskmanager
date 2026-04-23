@@ -63,13 +63,76 @@ export const deleteGroupById = async (id: string): Promise<IGroup | null> => {
     } catch (error) {
         throw new Error(`Couldn't delete group in the database with id: ${id}`, { cause: error });
     }
+
 }
 
 //**TODO: Refactor later */
-// export const addMember = async (id: string, userId: string): Promise<IGroup> => {
-//     try {
+export const addGroupMember = async (id: string, userId: string, role: string): Promise<IGroup | null> => {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        }
 
-//     } catch (error) {
+        //integration test: test whether points needs to be set or if mongodb sets it by default
+        const group = await Group.findByIdAndUpdate(id, {
+            $push: {members: {userId: userId, role: role}}
+        }, options);
 
-//     }
-// }
+        return group;
+    } catch (error) {
+        throw new Error(`Couldn't add member to group with id ${id}`, { cause: error });
+    }
+}
+
+export const addGroupInvitation = async (id: string, userId: string): Promise<IGroup | null> => {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        }
+
+        //integration test: test whether invitedAt needs to be set or if mongodb set by default
+        const group = await Group.findByIdAndUpdate(id, {
+            $push: {invitations: {userId: userId}}
+        }, options);
+
+        return group;
+    } catch (error) {
+        throw new Error(`Couldn't add invitation to group with id ${id}`, { cause: error });
+    }
+}
+
+export const removeGroupMember = async (id: string, userId: string): Promise<IGroup | null> => {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        }
+
+        const group = await Group.findByIdAndUpdate(id, {
+            $pull: {members: {userId: userId}}
+        }, options);
+
+        return group;
+    } catch (error) {
+        throw new Error(`Couldn't remove member from group with groupId: ${id}`, { cause: error });
+    }
+}
+
+export const removeGroupInvitation = async (id: string, userId: string): Promise<IGroup | null> => {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        }
+
+        const group = await Group.findByIdAndUpdate(id, {
+            $pull: {invitations: {userId: userId}}
+        }, options);
+
+        return group;
+    } catch (error) {
+        throw new Error(`Couldn't remove invitation from group with groupId: ${id}`, { cause: error });
+    }
+}
