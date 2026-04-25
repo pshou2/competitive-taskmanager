@@ -1,7 +1,7 @@
 @baseurl = http://localhost:5000/api
 
-@apWorldGroupId = 69ec00957d9afa2a8283cf6b
-@roommates343GroupId = 69ec010a7d9afa2a8283cf6d
+@apWorldGroupId = 69ec05cebe4e4e5e9626915d
+@roommates343GroupId = 69ec05d0be4e4e5e9626915f
 
 ###Create AP world group
 POST {{baseurl}}/groups
