@@ -1,0 +1,81 @@
+@baseurl = http://localhost:5000/api
+
+###Reset ids manually after creating and deleting new users
+@filoId = 69ebf0d9689cb325bb08c262
+@demon1Id = 69ebf0da689cb325bb08c264
+@tenzId = 69ebf0db689cb325bb08c266
+@aspasId = 69ebf0dc689cb325bb08c268
+
+
+### Create user File
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "21341i233",
+    "username": "File",
+    "email": "philshou@gmail.com"
+}
+
+### Create user Demon1
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "o2i3nfd",
+    "username": "demon1",
+    "email": "demon@gmail.com"
+}
+
+### Create user Tenz
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "hdvs40304",
+    "username": "Tenz",
+    "email": "tenz@gmail.com"
+}
+
+### Create user Aspas
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "000002sjdf",
+    "username": "aspas",
+    "email": "aspas@gmail.com"
+}
+
+### Get all users file
+GET {{baseurl}}/users
+
+### Get user by id file
+GET {{baseurl}}/users/{{filoId}}
+
+###Get user by id demon1
+GET {{baseurl}}/users/{{demon1Id}}
+
+### Update File to FILO
+PUT {{baseurl}}/users/{{filoId}}
+Content-Type: application/json
+
+{
+    "username": "FILO"
+}
+
+### Delete user FILO
+DELETE {{baseurl}}/users/{{filoId}}
+Content-Type: application/json
+
+### Delete user Demon1
+DELETE  {{baseurl}}/users/{{demon1Id}}
+Content-Type: application/json
+
+### Delete user Tenz
+DELETE  {{baseurl}}/users/{{tenzId}}
+Content-Type: application/json
+
+### Delete user aspas
+DELETE  {{baseurl}}/users/{{aspasId}}
+Content-Type: application/json

@@ -1,0 +1,44 @@
+@baseurl = http://localhost:5000/api
+
+@apWorldGroupId = 69ec00957d9afa2a8283cf6b
+@roommates343GroupId = 69ec010a7d9afa2a8283cf6d
+
+###Create AP world group
+POST {{baseurl}}/groups
+Content-Type: application/json
+
+{
+    "groupName": "AP world"
+}
+
+###Create Roommates group
+POST {{baseurl}}/groups
+Content-Type: application/json
+
+{
+    "groupName": "Roommates 343",
+    "groupGoal": "We promise to complete our chores on time"
+}
+
+###Get all groups
+GET {{baseurl}}/groups
+
+###Get AP World group
+GET {{baseurl}}/groups/{{apWorldGroupId}}
+
+###Get Roommates 343 group
+GET {{baseurl}}/groups/{{roommates343GroupId}}
+
+###Update AP world
+PUT {{baseurl}}/groups/{{apWorldGroupId}}
+Content-Type: application/json
+
+{
+    "groupGoal": "Finish our ap world project"
+}
+
+###Delete AP world group
+DELETE {{baseurl}}/groups/{{apWorldGroupId}}
+
+###Delete Roommates 343 group
+DELETE {{baseurl}}/groups/{{roommates343GroupId}}

@@ -56,7 +56,8 @@ const groupSchema = new Schema<IGroup> ({
         required: [true, "Group name is required"]
     },
     groupGoal: {
-        type: String
+        type: String,
+        default: ""
     },
     members: [memberSchema],
     invitations: [invitationSchema]
