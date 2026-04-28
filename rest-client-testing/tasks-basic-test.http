@@ -1,0 +1,92 @@
+@baseurl = http://localhost:5000/api
+
+@groupId = 69ec0613be4e4e5e96269164
+@userId = 69ec0814be4e4e5e9626916b
+@notCompletedTask = 69ec0937be4e4e5e96269173
+@completedTask = 69ec0a48be4e4e5e96269175
+
+###Setup tasks by creating a group and a user
+POST {{baseurl}}/groups
+Content-Type: application/json
+
+{
+    "groupName": "Test group"
+}
+
+###
+GET {{baseurl}}/groups/
+
+### Create user FILO
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "21341i233",
+    "username": "Filo",
+    "email": "phil@gmail.com"
+}
+
+###
+GET {{baseurl}}/users/
+
+###Create not completed test task
+POST {{baseurl}}/tasks
+Content-Type: application/json
+
+{
+    "groupId":"69ec0613be4e4e5e96269164",
+    "taskName":"not completed",
+    "author": "69ec0814be4e4e5e9626916b",
+    "assignedTo": "69ec0814be4e4e5e9626916b",
+    "dueDate": "{{$datetime iso8601 1 days}}"
+}
+
+###Create completed past task
+POST {{baseurl}}/tasks
+Content-Type: application/json
+
+{
+    "groupId":"69ec0613be4e4e5e96269164",
+    "taskName":"completed",
+    "isCompleted": "true",
+    "author": "69ec0814be4e4e5e9626916b",
+    "assignedTo": "69ec0814be4e4e5e9626916b",
+    "completedBy": "69ec0814be4e4e5e9626916b",
+    "startDate": "{{$datetime iso8601 -3 days}}",
+    "dueDate": "{{$datetime iso8601 6 days}}",
+    "completedDate": "{{$datetime iso8601}}"
+}
+
+###Get tasks by group id
+GET {{baseurl}}/tasks?groupId={{groupId}}
+
+###Get tasks by groupId and completed
+GET {{baseurl}}/tasks?groupId={{groupId}}&status=true
+
+###Get tasks by groupId and not completed
+GET {{baseurl}}/tasks?groupId={{groupId}}&status=false
+
+###Update not completed to completed
+PUT {{baseurl}}/tasks/{{notCompletedTask}}
+Content-Type: application/json
+
+{
+    "taskName": "was not completed, now is completed",
+    "isCompleted": "true",
+    "completedBy": "{{userId}}",
+    "completedDate": "{{$datetime iso8601}}"
+}
+
+###Delete was not completed task
+DELETE {{baseurl}}/tasks/{{notCompletedTask}}
+
+###Delete completed task
+DELETE {{baseurl}}/tasks/{{completedTask}}
+
+
+###Delete setups
+DELETE {{baseurl}}/groups/{{groupId}}
+
+###
+DELETE {{baseurl}}/users/{{userId}}
+

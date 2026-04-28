@@ -1,0 +1,124 @@
+###Setup
+###1. Create group
+###2. Create 2 users
+###3. Create 3 completed tasks
+###4. Get group rankings
+
+@baseurl = http://localhost:5000/api
+
+@groupId = 69f11342ce66b7121aec7c8d
+@demon1Id = 69f1133dce66b7121aec7c89
+@tenzId = 69f11340ce66b7121aec7c8b
+@demonFirstTaskId = 69f116edce66b7121aec7cb5
+@demonSecondTaskId = 69f1163ace66b7121aec7cac
+@tenzTaskId = 69f11599ce66b7121aec7ca5
+
+###1.
+POST {{baseurl}}/groups
+Content-Type: application/json
+
+{
+    "groupName": "Roommates 343",
+    "groupGoal": "We promise to complete our chores on time"
+}
+
+###2a
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "o2i3nfd",
+    "username": "demon1",
+    "email": "demon@gmail.com"
+}
+
+###2b
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "hdvs40304",
+    "username": "Tenz",
+    "email": "tenz@gmail.com"
+}
+
+###
+GET {{baseurl}}/users
+
+### 
+POST {{baseurl}}/groups/{{groupId}}/members/{{demon1Id}}
+###
+POST {{baseurl}}/groups/{{groupId}}/members/{{tenzId}}
+
+###4a. Demon1 completed tasks
+POST {{baseurl}}/tasks
+Content-Type: application/json
+
+{
+    "groupId":"{{groupId}}",
+    "taskName":"demon1 first completed",
+    "isCompleted": "true",
+    "author": "{{demon1Id}}",
+    "assignedTo": "{{demon1Id}}",
+    "completedBy": "{{demon1Id}}",
+    "startDate": "{{$datetime iso8601 -3 days}}",
+    "dueDate": "{{$datetime iso8601 6 days}}",
+    "completedDate": "{{$datetime iso8601}}"
+}
+
+###
+POST {{baseurl}}/tasks
+Content-Type: application/json
+
+{
+    "groupId":"69f11342ce66b7121aec7c8d",
+    "taskName":"demon1 second completed",
+    "isCompleted": "true",
+    "author": "69f1133dce66b7121aec7c89",
+    "assignedTo": "69f1133dce66b7121aec7c89",
+    "completedBy": "69f1133dce66b7121aec7c89",
+    "startDate": "{{$datetime iso8601 -1 days}}",
+    "dueDate": "{{$datetime iso8601 6 days}}",
+    "completedDate": "{{$datetime iso8601}}"
+}
+
+###4b. Tenz completed tasks
+POST {{baseurl}}/tasks
+Content-Type: application/json
+
+{
+    "groupId":"69f11342ce66b7121aec7c8d",
+    "taskName":"tenz completed",
+    "isCompleted": "true",
+    "author": "69f11340ce66b7121aec7c8b",
+    "assignedTo": "69f11340ce66b7121aec7c8b",
+    "completedBy": "69f11340ce66b7121aec7c8b",
+    "startDate": "{{$datetime iso8601}}",
+    "dueDate": "{{$datetime iso8601 6 days}}",
+    "completedDate": "{{$datetime iso8601}}"
+}
+
+###
+GET {{baseurl}}/tasks?groupId={{groupId}}
+
+###4. Get group rankings
+GET {{baseurl}}/groups/{{groupId}}/rankings
+
+###5. delete setup
+###Demon1 tasks
+DELETE {{baseurl}}/tasks/{{demonFirstTaskId}}
+###
+DELETE {{baseurl}}/tasks/{{demonSecondTaskId}}
+
+###Tenz
+DELETE {{baseurl}}/tasks/{{tenzTaskId}}
+
+###Delete group
+DELETE {{baseurl}}/groups/{{groupId}}
+
+###Delete users
+DELETE {{baseurl}}/users/{{demon1Id}}
+
+###
+DELETE {{baseurl}}/users/{{tenzId}}
+

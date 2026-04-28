@@ -1,0 +1,82 @@
+### Setup
+### 1. Create a group
+### 2. Create 2-3 users
+### 3. Test adding removing group invitations
+### 4. Test adding removing group members
+### 5. Delete group and users
+
+@baseurl = http://localhost:5000/api
+
+###Set these variables after creation
+@groupId = 69f10b774950e5f7a02f0356
+@demonId = 69f10b7a4950e5f7a02f0358
+@tenzId = 69f10b7e4950e5f7a02f035a
+
+
+###1.
+POST {{baseurl}}/groups
+Content-Type: application/json
+
+{
+    "groupName": "Roommates 343",
+    "groupGoal": "We promise to complete our chores on time"
+}
+
+###2a
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "o2i3nfd",
+    "username": "demon1",
+    "email": "demon@gmail.com"
+}
+
+###2b
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "hdvs40304",
+    "username": "Tenz",
+    "email": "tenz@gmail.com"
+}
+###
+GET {{baseurl}}/groups
+###
+GET {{baseurl}}/users
+
+###3a. Add demon1 group invitation
+POST {{baseurl}}/groups/{{groupId}}/invitations/{{demonId}}
+
+###3b. Add tenz group invitation
+POST {{baseurl}}/groups/{{groupId}}/invitations/{{tenzId}}
+
+###3c. Remove demon1 group invitation
+DELETE  {{baseurl}}/groups/{{groupId}}/invitations/{{demonId}}
+
+###3d. Remove tenz group invitation
+DELETE {{baseurl}}/groups/{{groupId}}/invitations/{{tenzId}}
+
+###4a. Add demon1 group member
+POST {{baseurl}}/groups/{{groupId}}/members/{{demonId}}?role=leader
+
+###3b. Add tenz group member
+POST {{baseurl}}/groups/{{groupId}}/members/{{tenzId}}
+
+###3c. Remove demon1 group member
+DELETE  {{baseurl}}/groups/{{groupId}}/members/{{demonId}}
+
+###3d. Remove tenz group member
+DELETE {{baseurl}}/groups/{{groupId}}/members/{{tenzId}}
+
+###5. Delete users and groups
+
+### Delete demon
+DELETE {{baseurl}}/users/{{demonId}}
+
+###Delete tenz
+DELETE {{baseurl}}/users/{{tenzId}}
+
+###Delete group
+DELETE {{baseurl}}/groups/{{groupId}}

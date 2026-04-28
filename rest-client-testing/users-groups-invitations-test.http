@@ -1,0 +1,76 @@
+###Set up
+###1. Create 1 user
+###2. Create 2-3 groups
+###3. Test adding or removing groupId from user invitations or groups
+@baseurl = http://localhost:5000/api
+
+@filoId = 69f10324cac775bd8df4139c
+@apWorld = 69f10328cac775bd8df4139e
+@roommates = 69f1032acac775bd8df413a0
+
+###1. 
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "googleId": "21341i233",
+    "username": "FILO",
+    "email": "phil@gmail.com"
+}
+
+###2a.
+POST {{baseurl}}/groups
+Content-Type: application/json
+
+{
+    "groupName": "AP world"
+}
+
+###2b. 
+POST {{baseurl}}/groups
+Content-Type: application/json
+
+{
+    "groupName": "Roommates 343",
+    "groupGoal": "We promise to complete our chores on time"
+}
+
+###Get user
+GET {{baseurl}}/users
+
+###Get groups
+GET {{baseurl}}/groups
+
+###3a. Add apworld to invitations
+POST {{baseurl}}/users/{{filoId}}/invitations/{{apWorld}}
+
+###3b. Add roommates to invitations
+POST {{baseurl}}/users/{{filoId}}/invitations/{{roommates}}
+
+###3c. Delete apworld from invitations
+DELETE {{baseurl}}/users/{{filoId}}/invitations/{{apWorld}}
+
+###3d. Delete roommates from invitations
+DELETE {{baseurl}}/users/{{filoId}}/invitations/{{roommates}}
+
+###4a. Add apworld to groups
+POST {{baseurl}}/users/{{filoId}}/groups/{{apWorld}}
+
+###4b. Add roommates to grous
+POST {{baseurl}}/users/{{filoId}}/groups/{{roommates}}
+
+###4c. Delete apworld from groups
+DELETE {{baseurl}}/users/{{filoId}}/groups/{{apWorld}}
+
+###4d. Delete roommates from groups
+DELETE {{baseurl}}/users/{{filoId}}/groups/{{roommates}}
+
+###Delete setup
+###Delete user
+DELETE {{baseurl}}/users/{{filoId}}
+
+###Delete apworld group
+DELETE {{baseurl}}/groups/{{apWorld}}
+
+###Delete roommates group
+DELETE {{baseurl}}/groups/{{roommates}}

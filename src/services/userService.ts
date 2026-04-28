@@ -1,13 +1,11 @@
-import { User, IUser } from '../models/User';
-
-//how do i test out just this file? What should I return? I want to return a list of users, of that interface type probably
+import { User, IUser } from "../models/User";
+import { QueryOptions } from "mongoose";
 
 export async function getAllUsers(): Promise<IUser[]> {
     try {
         const users = await User.find({});
         return users;
     } catch (error) {
-        //what is error when we catch error?
         throw new Error("Failed to query database for getAllUsers()", { cause: error });
     }
 
@@ -22,4 +20,101 @@ export async function getUserById(id: string): Promise<IUser | null> {
     }
 }
 
+export async function createUser(data: Partial<IUser>): Promise<IUser> {
+    try {
+        return await User.create(data);
+    } catch (error) {
+        throw new Error (`Failed to create a user in the database`, { cause: error });
+    }
+}
+
+export async function updateUserById(id: string, data: Partial<IUser>): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, data, options);
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
+
+export async function deleteUserById(id: string): Promise<IUser | null> {
+    try {
+        return await User.findByIdAndDelete(id);
+    } catch (error) {
+        throw new Error (`Failed to delete user by id ${id} in the database`, { cause: error });
+    }
+}
+
+/**TODO: Refactor repeat code
+ * updateUserInvitations, updateUserGroups, deleteUserInvitations, and deleteUserGroups
+ */
+
+export async function addUserInvitation(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        //push groupId to a user's invitations
+        return await User.findByIdAndUpdate(id, {
+            $push: { invitations: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
+
+export async function addUserGroup(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, {
+            $push: { groups: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
+
+export async function removeUserInvitation(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, {
+            $pull: { invitations: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
+
+export async function removeUserGroup(id: string, groupId: string): Promise<IUser | null> {
+    try {
+        const options: QueryOptions = {
+            returnDocument: "after",
+            runValidators: true
+        };
+
+        return await User.findByIdAndUpdate(id, {
+            $pull: { groups: groupId }
+        }, options);
+
+    } catch (error) {
+        throw new Error ("Failed to update user in the database", { cause: error });
+    }
+}
 
