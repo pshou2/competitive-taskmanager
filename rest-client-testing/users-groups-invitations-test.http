@@ -1,13 +1,12 @@
+###Set up
+###1. Create 1 user
+###2. Create 2-3 groups
+###3. Test adding or removing groupId from user invitations or groups
 @baseurl = http://localhost:5000/api
 
 @filoId = 69f10324cac775bd8df4139c
 @apWorld = 69f10328cac775bd8df4139e
 @roommates = 69f1032acac775bd8df413a0
-
-###Set up
-###1. Create 1 user
-###2. Create 2-3 groups
-###3. Test adding or removing groupId from user invitations or groups
 
 ###1. 
 POST {{baseurl}}/users
