@@ -2,9 +2,10 @@ import { Schema, model, Types } from "mongoose";
 
 ///create interface
 export interface IUser {
-    googleId: string;
+    googleId?: string;
     username: string;
     email: string;
+    password: string;
     groups: Types.ObjectId[];
     invitations: Types.ObjectId[];
 }
@@ -12,8 +13,7 @@ export interface IUser {
 ///create schema
 const userSchema = new Schema<IUser>({
     googleId: {
-        type: String, 
-        required: [true, "googleId is required"],
+        type: String
     },
     username: { 
         type: String, 
@@ -26,6 +26,11 @@ const userSchema = new Schema<IUser>({
         required: [true, "Email is required"], 
         unique: true,
         lowercase: true 
+    },
+    password: {
+        type: String,
+        required: [true, 'Password is required'],
+        minlength: [6, 'Password must be at least 6 characters']
     },
     groups: [{
         type: Schema.Types.ObjectId,
