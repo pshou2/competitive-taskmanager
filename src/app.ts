@@ -6,6 +6,7 @@ import { config } from "dotenv";
 import { userRouter } from "./routes/userRouter";
 import { taskRouter } from "./routes/taskRouter";
 import { groupRouter } from "./routes/groupRouter";
+import { authRouter } from "./routes/authRouter";
 
 config();
 
@@ -15,6 +16,8 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+
+app.use("api/auth", authRouter);
 
 app.use("/api/users", userRouter);
 app.use("/api/tasks", taskRouter);

@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 
 ///create interface
 export interface IUser {
+    _id: string;
     googleId?: string;
     username: string;
     email: string;
