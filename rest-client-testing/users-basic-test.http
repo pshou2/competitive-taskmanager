@@ -12,9 +12,9 @@ POST {{baseurl}}/users
 Content-Type: application/json
 
 {
-    "username": "File",
-    "email": "phil@gmail.com",
-    "password": "hello"
+    "username": "Fildfse",
+    "email": "test@gmail.com",
+    "password": "helloczxcv"
 }
 
 ### Create user Demon1
