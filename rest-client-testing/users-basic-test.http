@@ -1,7 +1,7 @@
 @baseurl = http://localhost:5000/api
 
 ###Reset ids manually after creating and deleting new users
-@filoId = 69f10302cac775bd8df41397
+@filoId = 6a10ff8bf4a6de9f307f485b
 @demon1Id = 69ebf0da689cb325bb08c264
 @tenzId = 69ebf0db689cb325bb08c266
 @aspasId = 69ebf0dc689cb325bb08c268
@@ -12,9 +12,9 @@ POST {{baseurl}}/users
 Content-Type: application/json
 
 {
-    "googleId": "21341i233",
     "username": "File",
-    "email": "phil@gmail.com"
+    "email": "phil@gmail.com",
+    "password": "hello"
 }
 
 ### Create user Demon1
