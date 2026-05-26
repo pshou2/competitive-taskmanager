@@ -7,7 +7,11 @@ export const authRouter = Router();
 
 authRouter.post("/register", async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await userService.createUser(req.body);
+        let user = await userService.getUserByEmail(req.body.email);
+        if (user) {
+            return res.status(409).json({message: `User already exists with email:${req.body.email}`});
+        }
+        user = await userService.createUser(req.body);
         const token = generateToken(user._id.toString());
         res.status(201).json({ token, user });
     } catch (error) {
