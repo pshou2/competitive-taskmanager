@@ -7,10 +7,6 @@ export const authRouter = Router();
 
 authRouter.post("/register", async (req: Request, res: Response, next: NextFunction) => {
     try {
-        //steps
-        //create user
-        //generateToken
-
         const user = await userService.createUser(req.body);
         const token = generateToken(user._id.toString());
         res.status(201).json({ token, user });
