@@ -1,10 +1,13 @@
 import { Schema, model, Types } from "mongoose";
+import bcrypt from 'bcrypt';
 
 ///create interface
 export interface IUser {
-    googleId: string;
+    _id: string;
+    googleId?: string;
     username: string;
     email: string;
+    password: string;
     groups: Types.ObjectId[];
     invitations: Types.ObjectId[];
 }
@@ -12,8 +15,7 @@ export interface IUser {
 ///create schema
 const userSchema = new Schema<IUser>({
     googleId: {
-        type: String, 
-        required: [true, "googleId is required"],
+        type: String
     },
     username: { 
         type: String, 
@@ -27,6 +29,11 @@ const userSchema = new Schema<IUser>({
         unique: true,
         lowercase: true 
     },
+    password: {
+        type: String,
+        required: [true, 'Password is required'],
+        minlength: [6, 'Password must be at least 6 characters']
+    },
     groups: [{
         type: Schema.Types.ObjectId,
         ref: "Group"
@@ -36,8 +43,19 @@ const userSchema = new Schema<IUser>({
         ref: "Group"
     }]
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: {
+        transform(doc, ret: Record<string, any>) {
+            delete ret.password;
+            return ret;
+        }
+    }
 }); 
+
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  this.password = await bcrypt.hash(this.password, 10);
+});
 
 ///export model
 export const User = model<IUser>("User", userSchema);

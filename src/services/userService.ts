@@ -20,6 +20,15 @@ export async function getUserById(id: string): Promise<IUser | null> {
     }
 }
 
+export async function getUserByEmail(email: string): Promise<IUser | null> {
+    try {
+        const user = await User.findOne({email: email});
+        return user;
+    } catch (error) {
+        throw new Error (`Failed to query database for getUserByEmail() : ${email}`, { cause: error });
+    }
+}
+
 export async function createUser(data: Partial<IUser>): Promise<IUser> {
     try {
         return await User.create(data);

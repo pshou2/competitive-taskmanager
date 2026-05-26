@@ -1,0 +1,39 @@
+@baseurl = http://localhost:5000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTEzZDZjNzdhNmZkMDM2YzI3NDA0MjQiLCJpYXQiOjE3Nzk2ODUwNjQsImV4cCI6MTc4MDI4OTg2NH0.cijXtJhsbH0_uz_DyeUO3E_YkyHU7lA_jCxc_lnxbwA
+@id = 6a13d6c77a6fd036c2740424
+
+
+###
+POST {{baseurl}}/auth/register
+Content-Type: application/json
+
+{
+    "username": "Filo",
+    "email": "philshou@gmail.com",
+    "password": "asdfasdf"
+}
+
+###
+POST {{baseurl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "philshou@gmail.com",
+    "password": "asdfasdf"
+}
+
+###
+GET {{baseurl}}/users
+
+###
+DELETE {{baseurl}}/users/{{id}}
+Authorization: Bearer {{token}}
+
+###
+PUT {{baseurl}}/users/{{id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "username":"Phillipe"
+}
