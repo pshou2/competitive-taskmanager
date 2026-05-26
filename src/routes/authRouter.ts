@@ -21,9 +21,6 @@ authRouter.post("/register", async (req: Request, res: Response, next: NextFunct
 
 authRouter.post("/login", async (req: Request, res: Response, next: NextFunction) => {
     try {
-        //given username and password in req.body
-        //output, accepted login if username found AND password matches, generateToken
-        //what should happen if user isn't found, we need to return an error
         const email = req.body.email;
         const plainPassword = req.body.password;
         const user = await userService.getUserByEmail(email);
@@ -37,6 +34,7 @@ authRouter.post("/login", async (req: Request, res: Response, next: NextFunction
         }
 
         const token = generateToken(user._id.toString());
+
         res.status(200).json({ token, user });
     } catch (error) {
         next(error);

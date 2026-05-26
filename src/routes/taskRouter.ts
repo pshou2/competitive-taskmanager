@@ -1,9 +1,10 @@
 import { Router } from "express";
 import * as taskController from "../controllers/taskController";
+import { protect } from "../middleware/auth";
 
 export const taskRouter = Router();
 
-taskRouter.get("/", taskController.getTasksByQuery);
-taskRouter.post("/", taskController.createTask);
-taskRouter.put("/:id", taskController.updateTaskById);
-taskRouter.delete("/:id", taskController.deleteTaskById);
+taskRouter.get("/", protect, taskController.getTasksByQuery);
+taskRouter.post("/", protect, taskController.createTask);
+taskRouter.put("/:id", protect, taskController.updateTaskById);
+taskRouter.delete("/:id", protect, taskController.deleteTaskById);

@@ -43,7 +43,13 @@ const userSchema = new Schema<IUser>({
         ref: "Group"
     }]
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: {
+        transform(doc, ret: Record<string, any>) {
+            delete ret.password;
+            return ret;
+        }
+    }
 }); 
 
 userSchema.pre('save', async function () {
