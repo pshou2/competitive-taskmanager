@@ -1,0 +1,46 @@
+import { Request, Response, NextFunction } from "express";
+
+export const errorHandler = (
+    err: any, 
+    req: Request, 
+    res: Response,
+    next: NextFunction
+) => {
+    let statusCode = 500;
+    let message = "Internal server error";
+
+    console.log(err.name);
+    console.log(err.message);
+
+    if (err.name === "ValidationError") {
+        statusCode = 400;
+        message = err.message;
+    }
+
+    //Mongoose cast error (invalid ObjectId)
+    //dont understand what path and value is here
+    if (err.name === "CastError") {
+        statusCode = 400;
+        message = `Invalid ${err.path}: ${err.value}`;
+    }
+
+    //Mongoose duplicate key error
+    //what are these key values for error
+    if (err.code === 11000) {
+        statusCode = 409;
+        const field = Object.keys(err.keyValue)[0];
+        message = `Duplicate value for ${field}`;
+    }
+
+    if (err.name === "JsonWebTokenError") {
+        statusCode = 401;
+        message = "Invalid token";
+    }
+
+    if (err.name === "TokenExpiredError") {
+        statusCode = 401;
+        message = "Token expired";
+    }
+
+    res.status(statusCode).json({message});
+};
