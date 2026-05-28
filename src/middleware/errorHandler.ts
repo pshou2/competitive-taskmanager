@@ -15,14 +15,12 @@ export const errorHandler = (
     }
 
     //Mongoose cast error (invalid ObjectId)
-    //dont understand what path and value is here
     if (err.name === "CastError") {
         statusCode = 400;
         message = `Invalid ${err.path}: ${err.value}`;
     }
 
     //Mongoose duplicate key error
-    //what are these key values for error
     if (err.code === 11000) {
         statusCode = 409;
         const field = Object.keys(err.keyValue)[0];
