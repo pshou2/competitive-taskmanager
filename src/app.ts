@@ -7,6 +7,7 @@ import { userRouter } from "./routes/userRouter";
 import { taskRouter } from "./routes/taskRouter";
 import { groupRouter } from "./routes/groupRouter";
 import { authRouter } from "./routes/authRouter";
+import { errorHandler } from "./middleware/errorHandler";
 
 config();
 
@@ -22,5 +23,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/tasks", taskRouter);
 app.use("/api/groups", groupRouter);
+
+app.use(errorHandler);
 
 export default app;
