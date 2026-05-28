@@ -9,9 +9,6 @@ export const errorHandler = (
     let statusCode = 500;
     let message = "Internal server error";
 
-    console.log(err.name);
-    console.log(err.message);
-
     if (err.name === "ValidationError") {
         statusCode = 400;
         message = err.message;
