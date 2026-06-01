@@ -27,6 +27,6 @@ export const protect = async (req: Request, res: Response, next: NextFunction) =
         (req as any).user = user;
         next();
     } catch (error) {
-        res.status(401).json({ message: 'Invalid or expired token' });
+        next(error);
     }
 };
